@@ -32,6 +32,8 @@ The Smart Academic Mentor is your personal guide for learning and skill developm
 
 --Interactive Quizzes: Test your knowledge on any subject by asking the mentor to start a quiz.
 
+![Image Alt](https://github.com/Biswajit-sow/NEXUS-An-AIML-project/blob/cd8a27399f6a5ae81fa85b0476d87b73cbf6769d/Screenshot%20(241).png)
+
 **🛠️ Tech Stack**
 
 Backend: Python, LangChain, Groq API
