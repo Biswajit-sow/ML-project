@@ -138,6 +138,7 @@ Bash
 IGNORE_WHEN_COPYING_END
 
 This will start the Gradio server, and you will see a local URL in your terminal (e.g., http://127.0.0.1:7860). Open this URL in your web browser to start using Nexus.
+IF you want to deploy this then write"app.launch(share=True)"..in the code and it is valid for 7 days .If you want to permanant valid deploy use **gradio deploy** code in terminal and then hugging face.
 
 # 📖 How to Use
 Using the AI Career Advisor
