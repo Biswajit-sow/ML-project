@@ -61,7 +61,7 @@ Follow these steps to get the Nexus application up and running on your local mac
 First, clone the repository to your local machine using the following command:
 
 Generated bash
-git clone https://github.com/your-username/nexus.git
+git clone (https://github.com/Biswajit-sow/NEXUS-An-AIML-project.git)
 cd nexus
 
 2. Create a Virtual Environment
