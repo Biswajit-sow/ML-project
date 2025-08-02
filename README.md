@@ -3,8 +3,8 @@
 Nexus is a comprehensive, AI-driven application designed to assist users with career development. It combines two powerful tools into a single, user-friendly interface: the AI Career Advisor and the Smart Academic Mentor. This suite is built using Python, LangChain, and Gradio, providing a seamless and interactive experience.
 
 
-**🚀 Features**
-** 1. AI Career Advisor**
+# 🚀 Features
+# 1. AI Career Advisor
 
 The AI Career Advisor offers an in-depth analysis of your resume against a specific job description. This tool is invaluable for anyone looking to tailor their application for a particular role.
 
@@ -18,7 +18,11 @@ The AI Career Advisor offers an in-depth analysis of your resume against a speci
 
 --Actionable Feedback: Receive concrete suggestions for improvement and a list of potential interview questions based on the analysis.
 
-**2. Smart Academic Mentor**
+
+
+![Image Alt](https://github.com/Biswajit-sow/NEXUS-An-AIML-project/blob/9c1cce76c648d49ea09537a95c08a290580d7e6e/Screenshot%20(242).png)
+
+# 2. Smart Academic Mentor
 
 The Smart Academic Mentor is your personal guide for learning and skill development. Whether you're starting with the suggestions from the Career Advisor or have your own learning goals, the mentor is here to help.
 
@@ -32,9 +36,11 @@ The Smart Academic Mentor is your personal guide for learning and skill developm
 
 --Interactive Quizzes: Test your knowledge on any subject by asking the mentor to start a quiz.
 
+
+
 ![Image Alt](https://github.com/Biswajit-sow/NEXUS-An-AIML-project/blob/cd8a27399f6a5ae81fa85b0476d87b73cbf6769d/Screenshot%20(241).png)
 
-**🛠️ Tech Stack**
+# 🛠️ Tech Stack
 
 Backend: Python, LangChain, Groq API
 
@@ -46,7 +52,7 @@ Data Visualization: Matplotlib, NumPy
 
 Speech Recognition: SpeechRecognition
 
-**📋 Prerequisites**
+# 📋 Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
@@ -79,6 +85,7 @@ download
 Use code with caution.
 Bash
 IGNORE_WHEN_COPYING_END
+
 3. Install Dependencies
 
 Install all the required Python packages using the requirements.txt file.
@@ -91,6 +98,7 @@ download
 Use code with caution.
 Bash
 IGNORE_WHEN_COPYING_END
+
 4. Set Up Environment Variables
 
 You will need to configure your API keys in an environment file.
@@ -109,11 +117,14 @@ Use code with caution.
 Env
 IGNORE_WHEN_COPYING_END
 
-# GROQ_API_KEY: This is essential for the application's Large Language Model (LLM) to function. You can obtain a key from the Groq website.
+# GROQ_API_KEY:
+This is essential for the application's Large Language Model (LLM) to function. You can obtain a key from the Groq website.
 
-# LANGCHAIN_API_KEY: This is required for tracing and monitoring the application's performance with LangSmith. You can get a key from the LangChain website.
+# LANGCHAIN_API_KEY: 
+This is required for tracing and monitoring the application's performance with LangSmith.If you got stuck ,show from there what error and type of error!
+You can get a key from the LangChain website.
 
-▶️ Running the Application
+# ▶️ Running the Application
 
 Once you have completed the setup, you can launch the application with the following command:
 
