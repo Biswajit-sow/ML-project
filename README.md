@@ -165,7 +165,7 @@ Switch to Mentor Mode: Select "2. Smart Academic Mentor" from the main dropdown.
 --Interactive Quizzes: To start a quiz, simply ask, "Can we play a quiz on [your topic]?".
 
 --Voice Input: You can also use the microphone icon to speak your queries directly to the mentor.
-
+Use Gradio feature like light dark mode ,start recording,check the "Use via API",and also "Build with gradio"
 **🤝 Contributing**
 
 Contributions are welcome! If you have suggestions for improvements or new features, please feel free to fork the repository, make your changes, and submit a pull request.
