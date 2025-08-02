@@ -1,7 +1,7 @@
 # ML-project
 Of course, here is a detailed, step-by-step README file for your GitHub repository.
 
-Nexus: Your AI-Powered Career Suite
+**Nexus: Your AI-Powered Career Suite**
 
 Nexus is a comprehensive, AI-driven application designed to assist users with career development. It combines two powerful tools into a single, user-friendly interface: the AI Career Advisor and the Smart Academic Mentor. This suite is built using Python, LangChain, and Gradio, providing a seamless and interactive experience.
 
