@@ -3,6 +3,8 @@
 Nexus is a comprehensive, AI-driven application designed to assist users with career development. It combines two powerful tools into a single, user-friendly interface: the AI Career Advisor and the Smart Academic Mentor. This suite is built using Python, LangChain, and Gradio, providing a seamless and interactive experience.
 
 
+![Image Alt](https://github.com/Biswajit-sow/NEXUS-An-AIML-project/blob/ef9560e73574c3ef2c164738a66fcedaaae8221a/Screenshot%20(243).png)
+
 # 🚀 Features
 # 1. AI Career Advisor
 
