@@ -21,8 +21,8 @@ from langchain_community.document_loaders import PyMuPDFLoader, Docx2txtLoader
 # --- 1. SET UP THE ENVIRONMENT ---
 load_dotenv()
 
-os.environ["LANGCHAIN_TRACING_V2"]="true"# tracing we have to kept it as true so it is automatically going to do the tracing  With respect to any code that write 
-os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY") # Langchain API key actually  help us to know that where the  entire monitoring result needs to be stored right so that dashboard you will be able  to see the entire monitoring result will be over here 
+os.environ["LANGCHAIN_TRACING_V2"]="true"# tracing we have to kept it as true so it is automatically going to do the tracing  With respect to any code that write
+os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY") # Langchain API key actually  help us to know that where the  entire monitoring result needs to be stored right so that dashboard you will be able  to see the entire monitoring result will be over here
 os.environ["LANGCHAIN_PROJECT"] = "AI-ML Project"
 # --- All backend Python functions are UNCHANGED ---
 
@@ -225,11 +225,12 @@ def get_mentor_chain(session_id, model_name):
         session_memories[session_id] = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     llm = ChatGroq(temperature=0.7, model_name=model_name)
     mentor_prompt_template = """You are a helpful and friendly Smart Academic Mentor. Your primary goal is to help users break down their learning goals into a structured, actionable plan.
-    **If any user asks your name, you must always respond that Hey , NEXUS here . Clearly state that you are an AI Career Advisor and a Smart Academic Mentor designed to assist with career guidance, skill development, academic planning, and personalized learning journeys.** Maintain consistency in this identity across all responses.
+    **If any user asks your name then only , you respond with your name NEXUS developed by SWEET POISON.
+    **Clearly state that You are NEXUS developed by SWEET POISON, you are an AI Career Advisor and a Smart Academic Mentor designed to assist with career guidance, skill development, academic planning, and personalized learning journeys.** Maintain consistency in this identity across all responses. Don't tell your your name agian again in every query.
 
     **SPECIAL INSTRUCTIONS FOR VISUALIZATION:**
     1.  Analyze the user's request. If the user explicitly asks for a "chart," "roadmap," "visual," "graph," or "timeline" for their learning plan, you MUST generate a special JSON object for visualization.
-    2.  This JSON object must be placed at the very end of your response, enclosed in 
+    2.  This JSON object must be placed at the very end of your response, enclosed in
 json ...
  tags.
     3.  The JSON object must have this exact structure (NOTE: The curly braces {{ and }} are escaped for the template):
@@ -257,12 +258,12 @@ json ...
     5.  If the user is simply chatting or asking a question that is not explicitly requesting a full learning roadmap visual, do not generate any JSON or diagram. Only respond conversationally. When generating a chart, ensure it is of high visibility and professional quality: the chart must have no overlapping between numbers, text, boxes, or lines. Every part of the chart should be easily readable without requiring the user to zoom in. The output must be crisp, non-blurry, and designed for maximum readability and a premium appearance.
 
         --Additionally, if the user says something like "I am learning...","I want to learn... followed by a topic (for example, "I am learning deep learning" or "I started learning web development","I want to Learn astology" and oters), first provide helpful and accurate information or guidance on that topic.
-        -- After providing that information, ask the user whether they would like to see a visual diagram or chart for better understanding.
+        -- After providing that information, ask the user whether they would like to see a visual diagram or chart for better understanding and nothing and don't give any JSOn text output with this Question.
             --If the user responds yes, then generate and present the visual.
             --If the user responds no, do not generate the visual.
 
     🔴 ABSOLUTE RULE — NO EXCEPTIONS:
-        --If the user does not explicitly request a visual diagram or chart, you must NOT generate or include any visual by default.
+        --If the user does not explicitly request a visual diagram or chart, you must NOT generate or include any visual by default and not give any json text output.
         --Here is an ultra-strict rule for generating visual diagrams:
             **The assistant must ensure that every visual diagram generated meets the highest standards of clarity, readability, and design excellence.
             ** All text within the diagram must be rendered in ultra-high quality, using large, bold, and legible fonts that require no zooming or squinting. The layout must be clean, spacious, and professionally structured—absolutely no overlapping of text, labels, boxes, or arrows is permitted under any circumstance. Every element of the diagram must be clearly visible and aesthetically aligned to create a premium, polished appearance. If there is even a slight risk of blurriness, compression artifacts, or cramped spacing, the assistant must **not generate** the diagram until all issues are corrected. The final output must look like a presentation-ready infographic—flawless, easy to read, and instantly understandable. Any diagram that fails to meet this ultra-high-quality standard must be considered unacceptable.
@@ -337,18 +338,10 @@ def transcribe_audio(audio_path):
             print(f"Could not request results from Google service; {e}")
             return f"API Error: Could not connect to the speech recognition service."
 
-def switch_ui_mode(mode_selection):
-    is_advisor_visible = (mode_selection == "1. AI Career Advisor")
-    is_mentor_visible = (mode_selection == "2. Smart Academic Mentor")
-    return {
-        advisor_ui_container: gr.update(visible=is_advisor_visible),
-        mentor_ui_container: gr.update(visible=is_mentor_visible)
-    }
-
 # --- MODIFIED: CSS now handles the gap between columns ---
 custom_css = """
 /* --- [Theme: "NexusUI Futurist"] --- */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Roboto:wght@400;500;700&display=swap');
 
 :root {
     --nexus-bg-dark: #0d1117;
@@ -366,25 +359,70 @@ custom_css = """
 body {
     background: var(--nexus-bg-dark);
     color: var(--nexus-text-color);
-    font-family: var(--font-main);
+    font-family: 'Times New Roman', Times, serif;
 }
 .gradio-container { background: none; }
 
 /* App Title */
 #gradio-title {
     font-family: var(--font-title);
-    font-size: 3em;
+    font-size: 3em !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: var(--nexus-text-color-light);
-    text-shadow: 0 0 8px var(--nexus-primary-accent), 0 0 16px var(--nexus-secondary-accent);
-    padding-top: 24px;
+    text-shadow: 0 0 5px var(--nexus-primary-accent);
+    padding-top: 20px;
     padding-left: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
 }
 
+/* --- [New Welcome Screen Styles] --- */
+.welcome-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    text-align: center;
+    padding: 20px;
+}
+.nexus-main-title {
+    font-family: var(--font-title);
+    font-size: 6em;
+    font-weight: 700;
+    color: var(--nexus-text-color-light);
+    text-shadow: 0 0 10px var(--nexus-primary-accent), 0 0 20px var(--nexus-secondary-accent);
+    margin: 0;
+}
+.nexus-subtitle {
+    font-family: var(--font-title);
+    font-size: 1.8em;
+    font-weight: 500;
+    color: var(--nexus-text-color);
+    margin-top: 15px;
+}
+.nexus-description {
+    font-family: var(--font-title);
+    font-size: 1.1em;
+    color: var(--nexus-text-color);
+    max-width: 600px;
+    margin-top: 15px;
+    line-height: 1.6;
+}
+.nexus-cta {
+    font-family: var(--font-title);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--nexus-primary-accent);
+    margin-top: 30px;
+    text-shadow: 0 0 5px var(--nexus-primary-accent);
+}
+
+
 /* ALL text headings and labels (excluding markdowns with different class) */
-h1, h2, h3, h4, h5, h6, p, span, .gradio-label, .gradio-markdown, label, .gradio-dropdown label {
-    font-family: var(--font-title) !important;
+h1, h2, h3, h4, h5, h6, .gradio-label, .gradio-markdown, label, .gradio-dropdown label {
+    font-family: var(--font-main) !important;
     font-weight: 600 !important;
     letter-spacing: 0.5px;
 }
@@ -414,7 +452,7 @@ h1, h2, h3, h4, h5, h6, p, span, .gradio-label, .gradio-markdown, label, .gradio
 
 /* Indented heading title of section */
 #advisor_title h2 {
-    font-family: var(--font-title);
+    font-family: var(--font-main);
     color: var(--nexus-primary-accent);
     border-bottom: 1px solid var(--nexus-border-color);
     padding-bottom: 8px;
@@ -430,7 +468,7 @@ h1, h2, h3, h4, h5, h6, p, span, .gradio-label, .gradio-markdown, label, .gradio
 
 /* Labels above dropdowns, files, etc. */
 label.gradio-label > .label-span {
-    font-family: var(--font-title) !important;
+    font-family: var(--font-main) !important;
     font-weight: 600 !important;
     letter-spacing: 0.5px !important;
     color: var(--nexus-text-color-light) !important;
@@ -444,6 +482,8 @@ label.gradio-label > .label-span {
 /* Avoids all-caps on tab labels */
 .gradio-tabs > .tab-nav > button, .gradio-accordion > .label-wrap > .label-span {
     text-transform: none !important;
+    font-size: 2em !important;
+    font-family: var(--font-main) !important;
 }
 
 .gradio-form > div:has(> .gradio-label) {
@@ -479,7 +519,7 @@ textarea:focus, input[type="text"]:focus {
     margin-top: 16px !important;
     margin-bottom: 24px !important;
     border-radius: 10px !important;
-    font-family: 'Orbitron', sans-serif !important;  /* modern futuristic style */
+    font-family: 'Orbitron', sans-serif !important;
     font-weight: 700 !important;
     font-size: 1.1em !important;
     letter-spacing: 0.5px;
@@ -503,7 +543,7 @@ textarea:focus, input[type="text"]:focus {
     margin-top: 12px !important;
     margin-bottom: 16px !important;
     border-radius: 12px !important;
-    font-family: 'Orbitron', sans-serif !important;  /* modern futuristic style */
+    font-family: 'Orbitron', sans-serif !important;
     font-weight: 700 !important;
     font-size: 1.1em !important;
     letter-spacing: 0.5px;
@@ -551,20 +591,20 @@ textarea:focus, input[type="text"]:focus {
     pointer-events: none;
 }
 .welcome-message-text {
-    font-family: var(--font-title);
+    font-family: var(--font-main);
     font-size: 2.8em;
     color: var(--nexus-text-color-light);
     text-shadow: 0 0 10px var(--nexus-secondary-accent);
 }
 .welcome-message-subtext {
-    font-family: var(--font-main);
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.2em;
     color: var(--nexus-text-color);
     margin-top: 10px;
 }
 #gap_analysis_heading {
     color: #00ffff; /* Neon light blue */
-    font-family: var(--font-title);
+    font-family: var(--font-main);
     font-weight: 700;
     text-shadow: 0 0 6px #00ffff;
 }
@@ -579,9 +619,9 @@ textarea:focus, input[type="text"]:focus {
     position: relative; /* Essential for positioning pseudo-elements */
     border-top: 1px solid rgba(0, 224, 255, 0.2);
     border-bottom: 1px solid rgba(0, 224, 255, 0.2);
-    background: linear-gradient(to right, 
-        rgba(2, 11, 38, 0.1) 0%, 
-        rgba(0, 224, 255, 0.05) 50%, 
+    background: linear-gradient(to right,
+        rgba(2, 11, 38, 0.1) 0%,
+        rgba(0, 224, 255, 0.05) 50%,
         rgba(2, 11, 38, 0.1) 100%);
     box-shadow: 0 -5px 15px -5px rgba(0, 224, 255, 0.3)
 }
@@ -618,7 +658,7 @@ textarea:focus, input[type="text"]:focus {
     background: none !important;
     animation: textFlicker 5s infinite alternate;
     /* Layered text-shadow for a deep "bloom" effect */
-    text-shadow: 
+    text-shadow:
         0 0 2px #fff,
         0 0 7px var(--nexus-primary-accent),
         0 0 12px var(--nexus-primary-accent),
@@ -631,7 +671,7 @@ textarea:focus, input[type="text"]:focus {
 @keyframes textFlicker {
     0%, 18%, 22%, 25%, 53%, 57%, 100% {
         opacity: 1;
-        text-shadow: 
+        text-shadow:
             0 0 2px #fff,
             0 0 7px var(--nexus-primary-accent),
             0 0 12px var(--nexus-primary-accent),
@@ -654,6 +694,16 @@ textarea:focus, input[type="text"]:focus {
         opacity: 1;
     }
 }
+/* --- NEW: Style for the Learning Goal Textbox --- */
+#learning_goal_output_box textarea {
+    border: 1px solid var(--nexus-primary-accent) !important;
+    box-shadow: 0 0 8px -2px var(--nexus-primary-accent) !important;
+    transition: all 0.3s ease-in-out !important;
+}
+#learning_goal_output_box:hover textarea {
+    border-color: white !important;
+    box-shadow: 0 0 12px 0px var(--nexus-primary-accent), 0 0 20px 0px var(--nexus-secondary-accent) !important;
+}
 """
 
 def clear_textbox():
@@ -663,83 +713,89 @@ def hide_welcome_message():
     return gr.update(visible=False)
 
 # --- Build the Gradio App ---
-with gr.Blocks(theme=gr.themes.Soft(), title="AI Career Suite", css=custom_css) as app:
-    gr.Markdown("# 🤖 WELCOME TO THE NEXUS", elem_id="gradio-title")
+with gr.Blocks(theme=gr.themes.Soft(), title="NEXUS Platform", css=custom_css) as app:
+    gr.Markdown("NEXUS Platform", elem_id="gradio-title")
     session_id_state = gr.State(value=lambda: str(uuid4()))
 
-    with gr.Row():
-        mode_selector = gr.Dropdown(
-            choices=["1. AI Career Advisor", "2. Smart Academic Mentor"],
-            value="1. AI Career Advisor",
-            label="Select a Tool from the Suite"
-        )
-    with gr.Row():
-        llm_selector = gr.Dropdown(
-            label="Select LLM Model",
-            choices=['llama3-70b-8192', 'llama3-8b-8192','meta-llama/llama-4-scout-17b-16e-instruct','meta-llama/llama-4-maverick-17b-128e-instruct','deepseek-r1-distill-llama-70b','qwen/qwen3-32b'],
-            value='llama3-70b-8192'
-        )
+    with gr.Tabs() as tabs:
+        with gr.TabItem("🚀 Welcome to NEXUS", id="welcome_tab"):
+            gr.HTML("""
+                <div class="welcome-page-container">
+                    <h1 class="nexus-main-title">NEXUS</h1>
+                    <p class="nexus-subtitle">Your AI-Powered Career and Learning Co-pilot</p>
+                    <p class="nexus-description">Navigate your career path with precision. Analyze your skills, get personalized learning roadmaps, and prepare for your next big opportunity.</p>
+                    <p class="nexus-cta">Select a tool from the tabs above to begin.</p>
+                </div>
+            """)
 
-    # --- UI Container for Advisor ---
-    with gr.Column(visible=True, elem_classes="gradio-glow") as advisor_ui_container:
-        gr.Markdown("## In-Depth Resume & Job Description Analysis", elem_id="advisor_title")
-        # --- MODIFIED: Removed 'gap' and added 'elem_id' to control spacing via CSS ---
-        with gr.Row(elem_id="advisor_content_row"):
-            with gr.Column(scale=1, min_width=350):
-                resume_input = gr.File(label="Upload Your Resume (PDF or DOCX)", file_types=[".pdf", ".docx"])
-                jd_input = gr.Textbox(lines=15, label="Paste Job Description Here")
-                analyze_button = gr.Button("Analyze", variant="primary", elem_id="analyze_button")
-            with gr.Column(scale=2, min_width=350):
-                gr.Markdown("### Gap Analysis Report",elem_id="gap_analysis_heading")
-                chart_output = gr.Image(label="Visual Skill Gap")
-                analysis_output = gr.Markdown()
-                learning_goal_output = gr.Textbox(label="Suggested Learning Goal (for Mentor)", interactive=False)
-
-    # --- UI Container for Mentor ---
-    with gr.Column(visible=False) as mentor_ui_container:
-        gr.Markdown("## 🎯 Get a Personalized Learning Plan")
-        gr.Markdown("**1️⃣ Start with the goal suggested by the Advisor, or type your own.**")
-        gr.Markdown("**2️⃣ You can ask for a 'visual roadmap' or a 'learning chart' to guide your path.**")
-        gr.Markdown("**3️⃣ Want a quiz on any topic? Ask Nexus to play the Quiz Game with you!**")
-        gr.Markdown("**🔴INSTRUCTION : For use Smart Academic Mentor use models 'meta-llama/llama-4-scout-17b-16e-instruct','meta-llama/llama-4-maverick-17b-128e-instruct'**")
-        gr.Markdown("**Don't use other models otherwise you get json text  output !!**")
-        with gr.Column(elem_classes="gradio-chatbot-glow") as chatbot_container:
-            with gr.Row(visible=True) as welcome_row:
-                 welcome_html = gr.HTML(
-                    value="""
-                    <div class="welcome-message-container">
-                        <p class="welcome-message-text">NEXUS</p>
-                        <p class="welcome-message-subtext">Hello, I am here to assist you.</p>
-                    </div>
-                    """
+        with gr.TabItem("1. AI Career Advisor", id="advisor_tab"):
+            with gr.Column(elem_classes="gradio-glow"):
+                llm_selector_advisor = gr.Dropdown(
+                    label="Select LLM Model",
+                    choices=['llama3-70b-8192', 'llama3-8b-8192','meta-llama/llama-4-scout-17b-16e-instruct','meta-llama/llama-4-maverick-17b-128e-instruct','deepseek-r1-distill-llama-70b','qwen/qwen3-32b'],
+                    value='llama3-70b-8192'
                 )
-            chatbot = gr.Chatbot(show_label=False)
-        # MODIFIED: Input row now includes a voice input button
-        with gr.Row():
-            voice_input = gr.Audio(
-                sources=["microphone"],
-                type="filepath",
-                label="Voice Chat 🎙️",
-                scale=1,
+                gr.Markdown("## In-Depth Resume & Job Description Analysis", elem_id="advisor_title")
+                with gr.Row(elem_id="advisor_content_row"):
+                    with gr.Column(scale=1, min_width=350):
+                        resume_input = gr.File(label="Upload Your Resume (PDF or DOCX)", file_types=[".pdf", ".docx"])
+                        jd_input = gr.Textbox(lines=15, label="Paste Job Description Here",elem_id="learning_goal_output_box")
+                        analyze_button = gr.Button("Analyze", variant="primary", elem_id="analyze_button")
+                    with gr.Column(scale=2, min_width=350):
+                        gr.Markdown("### Gap Analysis Report",elem_id="gap_analysis_heading")
+                        chart_output = gr.Image(label="Visual Skill Gap")
+                        analysis_output = gr.Markdown()
+                        learning_goal_output = gr.Textbox(label="Suggested Learning Goal (for Mentor)", interactive=False, elem_id="learning_goal_output_box")
+
+        with gr.TabItem("2. Smart Academic Mentor", id="mentor_tab"):
+            llm_selector_mentor = gr.Dropdown(
+                label="Select LLM Model",
+                choices=['llama3-70b-8192', 'llama3-8b-8192','meta-llama/llama-4-scout-17b-16e-instruct','meta-llama/llama-4-maverick-17b-128e-instruct','deepseek-r1-distill-llama-70b','qwen/qwen3-32b'],
+                value='meta-llama/llama-4-scout-17b-16e-instruct'
             )
-            msg = gr.Textbox(
-                show_label=False,
-                placeholder="Enter your message, record your voice, or press enter",
-                scale=6,
-            )
-            send_button = gr.Button("Send", variant="primary", scale=1, elem_id="send_button")
+            gr.Markdown("## 🎯 Get a Personalized Learning Plan")
+            gr.Markdown("**1️⃣ Start with the goal suggested by the Advisor, or type your own.**")
+            gr.Markdown("**2️⃣ You can ask for a 'visual roadmap' or a 'learning chart' to guide your path.**")
+            gr.Markdown("**3️⃣ Want a quiz on any topic? Ask Nexus to play the Quiz Game with you!**")
+            gr.Markdown("**🔴INSTRUCTION : For use Smart Academic Mentor use models 'meta-llama/llama-4-scout-17b-16e-instruct','meta-llama/llama-4-maverick-17b-128e-instruct'**")
+            gr.Markdown("**Don't use other models otherwise you get json text  output !!**")
+            with gr.Column(elem_classes="gradio-chatbot-glow") as chatbot_container:
+                with gr.Row(visible=True) as welcome_row:
+                     welcome_html = gr.HTML(
+                        value="""
+                        <div class="welcome-message-container">
+                            <p class="welcome-message-text">NEXUS</p>
+                            <p class="welcome-message-subtext">Hello, I am here to assist you.</p>
+                        </div>
+                        """
+                    )
+                chatbot = gr.Chatbot(show_label=False)
+            with gr.Row():
+                voice_input = gr.Audio(
+                    sources=["microphone"],
+                    type="filepath",
+                    label="Voice Chat 🎙️",
+                    scale=1,
+                )
+                msg = gr.Textbox(
+                    show_label=False,
+                    placeholder="Enter your message, record your voice, or press enter",
+                    scale=6,
+                )
+                send_button = gr.Button("Send", variant="primary", scale=1, elem_id="send_button")
+
     gr.Markdown("`[ Nexus Core v1.0 // Engineered by Sweet Poison ]`", elem_id="app_footer")
 
     # --- EVENT HANDLERS (UNCHANGED) ---
     analyze_button.click(
         fn=run_career_advisor_analysis,
-        inputs=[resume_input, jd_input, llm_selector],
+        inputs=[resume_input, jd_input, llm_selector_advisor],
         outputs=[analysis_output, learning_goal_output, chart_output]
     )
 
     send_button.click(
         fn=mentor_chat_response,
-        inputs=[msg, chatbot, session_id_state, llm_selector],
+        inputs=[msg, chatbot, session_id_state, llm_selector_mentor],
         outputs=[chatbot]
     ).then(
         fn=lambda: gr.update(visible=False),
@@ -751,7 +807,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="AI Career Suite", css=custom_css) 
 
     msg.submit(
         fn=mentor_chat_response,
-        inputs=[msg, chatbot, session_id_state, llm_selector],
+        inputs=[msg, chatbot, session_id_state, llm_selector_mentor],
         outputs=[chatbot]
     ).then(
         fn=lambda: gr.update(visible=False),
@@ -760,15 +816,14 @@ with gr.Blocks(theme=gr.themes.Soft(), title="AI Career Suite", css=custom_css) 
         fn=clear_textbox,
         outputs=[msg]
     )
-    
-    # NEW: Event handler for voice input. It transcribes audio and then calls the original chat function.
+
     voice_input.stop_recording(
         fn=transcribe_audio,
         inputs=[voice_input],
         outputs=[msg]
     ).then(
         fn=mentor_chat_response,
-        inputs=[msg, chatbot, session_id_state, llm_selector],
+        inputs=[msg, chatbot, session_id_state, llm_selector_mentor],
         outputs=[chatbot]
     ).then(
         fn=lambda: gr.update(visible=False),
@@ -781,12 +836,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="AI Career Suite", css=custom_css) 
     # Hide welcome message on any input activity (text or voice)
     msg.change(fn=hide_welcome_message, outputs=[welcome_row])
     voice_input.start_recording(fn=hide_welcome_message, outputs=[welcome_row])
-    
-    mode_selector.change(
-        fn=switch_ui_mode,
-        inputs=mode_selector,
-        outputs=[advisor_ui_container, mentor_ui_container]
-    )
+
 
 # --- The rest of your script (if __name__ == "__main__":) ---
 if __name__ == "__main__":
@@ -802,5 +852,3 @@ if __name__ == "__main__":
                 print(f"Could not create dummy 'bot.png': {e}. Please add a 'bot.png' file to the directory.")
         print("Launching Gradio App... Open the URL in your browser.")
         app.launch(share=True)
-        
-        
